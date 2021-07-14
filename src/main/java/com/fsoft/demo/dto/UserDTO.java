@@ -1,9 +1,13 @@
 package com.fsoft.demo.dto;
 
+import java.util.List;
+
 public class UserDTO {
     private Long id;
     private String name;
     private String password;
+    private List<PostDTO> postDTOS;
+    private List<CommentDTO> commentDTOS;
 
     public Long getId() {
         return id;
@@ -27,5 +31,21 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<PostDTO> getPostDTOS() {
+        return postDTOS;
+    }
+
+    public void setPostDTOS(List<PostDTO> postDTOS) {
+        this.postDTOS = postDTOS;
+    }
+
+    public List<CommentDTO> getCommentDTOS() {
+        return commentDTOS;
+    }
+
+    public void setCommentDTOS(List<CommentDTO> commentDTOS) {
+        this.commentDTOS = commentDTOS;
     }
 }
