@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "account")
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +19,11 @@ public class User {
     private String password;
 
     @OneToMany
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "account_id")
     private List<Post> posts;
 
     @OneToMany
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "account_id")
     private List<Comment> comments;
 
     public Long getId() {

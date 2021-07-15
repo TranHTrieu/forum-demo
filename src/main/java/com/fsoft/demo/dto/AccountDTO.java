@@ -2,7 +2,7 @@ package com.fsoft.demo.dto;
 
 import java.util.List;
 
-public class UserDTO {
+public class AccountDTO {
     private Long id;
     private String name;
     private String password;

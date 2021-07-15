@@ -5,10 +5,10 @@ import com.fsoft.demo.entity.Comment;
 import com.fsoft.demo.exception.ResourceNotFoundException;
 import com.fsoft.demo.repository.CommentRepository;
 import com.fsoft.demo.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -16,6 +16,7 @@ public class CommentServiceImpl implements CommentService {
 
     private CommentRepository commentRepository;
 
+    @Autowired
     public CommentServiceImpl(CommentRepository commentRepository){
         this.commentRepository = commentRepository;
     }
@@ -38,13 +39,8 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentDTO> findAll() {
         List<Comment> rs = commentRepository.findAll();
         List<CommentDTO> rsDTO = new ArrayList<>();
-//        for (Comment comment : rs){
-//            rsDTO.add((CommentDTO) mapper(comment));
-//        }
-        Iterator<Comment> itr = rs.iterator();
-        while (itr.hasNext()){
-            Comment commentItr = itr.next();
-            rsDTO.add((CommentDTO) mapper(commentItr));
+        for (Comment comment : rs){
+            rsDTO.add((CommentDTO) mapper(comment));
         }
         return rsDTO;
     }

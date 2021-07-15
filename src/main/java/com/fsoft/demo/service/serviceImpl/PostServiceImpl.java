@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -31,12 +30,10 @@ public class PostServiceImpl implements PostService {
             rs.setContent(((Post) obj).getContent());
             List<Comment> comments = ((Post) obj).getComments();
             List<CommentDTO> commentDTOS = new ArrayList<>();
-            Iterator<Comment> itr = comments.iterator();
-            while (itr.hasNext()){
-                Comment commentItr = itr.next();
+            for(Comment comment : comments){
                 CommentDTO commentDTO = new CommentDTO();
-                commentDTO.setId(commentItr.getId());
-                commentDTO.setContent(commentItr.getContent());
+                commentDTO.setId(comment.getId());
+                commentDTO.setContent(comment.getContent());
                 commentDTOS.add(commentDTO);
             }
             rs.setCommentDTOS(commentDTOS);
@@ -48,12 +45,10 @@ public class PostServiceImpl implements PostService {
             rs.setContent(((PostDTO) obj).getContent());
             List<CommentDTO> commentDTOS = ((PostDTO) obj).getCommentDTOS();
             List<Comment> comments = new ArrayList<>();
-            Iterator<CommentDTO> itr = commentDTOS.iterator();
-            while (itr.hasNext()){
-                CommentDTO commentItr = itr.next();
+            for(CommentDTO commentDTO : commentDTOS){
                 Comment comment = new Comment();
-                comment.setId(commentItr.getId());
-                comment.setContent(commentItr.getContent());
+                comment.setId(commentDTO.getId());
+                comment.setContent(commentDTO.getContent());
                 comments.add(comment);
             }
             rs.setComments(comments);
@@ -67,13 +62,8 @@ public class PostServiceImpl implements PostService {
     public List<PostDTO> findAll() {
         List<Post> rs = postRepository.findAll();
         List<PostDTO> rsDTO = new ArrayList<>();
-//        for (Post post : rs){
-//            rsDTO.add((PostDTO) mapper(post));
-//        }
-        Iterator<Post> itr = rs.iterator();
-        while (itr.hasNext()){
-            Post postItr = itr.next();
-            rsDTO.add((PostDTO) mapper(postItr));
+        for (Post post : rs){
+            rsDTO.add((PostDTO) mapper(post));
         }
         return rsDTO;
     }
