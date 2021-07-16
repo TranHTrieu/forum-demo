@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/comments")
 @CrossOrigin(origins = "*")
 public class CommentController {
 
@@ -20,22 +21,22 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping("/comments")
+    @GetMapping
     public List<CommentDTO> getAllComments(){
         return commentService.findAll();
     }
 
-    @PostMapping("/comments")
+    @PostMapping
     public CommentDTO saveComment(@RequestBody CommentDTO newComment){
         return commentService.save(newComment);
     }
 
-    @GetMapping("/comments/{id}")
+    @GetMapping("/{id}")
     public CommentDTO getComment(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         return commentService.findById(id);
     }
 
-    @PutMapping("/comments/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CommentDTO> updateContent(@PathVariable(value = "id") Long id, @RequestBody String content) throws ResourceNotFoundException {
         CommentDTO comment = commentService.updateContent(id, content);
         return ResponseEntity.ok(comment);
