@@ -24,11 +24,13 @@ public class CommentServiceImpl implements CommentService {
     private Object mapper(Object obj){
         if (obj instanceof Comment){
             CommentDTO rs = new CommentDTO();
+            rs.setId(((Comment) obj).getId());
             rs.setContent(((Comment) obj).getContent());
             return rs;
         }
         if (obj instanceof CommentDTO){
             Comment rs = new Comment();
+            rs.setId(((CommentDTO) obj).getId());
             rs.setContent(((CommentDTO) obj).getContent());
             return rs;
         }

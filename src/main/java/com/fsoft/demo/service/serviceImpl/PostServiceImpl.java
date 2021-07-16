@@ -26,6 +26,7 @@ public class PostServiceImpl implements PostService {
     private Object mapper(Object obj){
         if (obj instanceof Post){
             PostDTO rs = new PostDTO();
+            rs.setId(((Post) obj).getId());
             rs.setTitle(((Post) obj).getTitle());
             rs.setContent(((Post) obj).getContent());
             List<Comment> comments = ((Post) obj).getComments();
@@ -41,6 +42,7 @@ public class PostServiceImpl implements PostService {
         }
         if (obj instanceof PostDTO){
             Post rs = new Post();
+            rs.setId(((PostDTO) obj).getId());
             rs.setTitle(((PostDTO) obj).getTitle());
             rs.setContent(((PostDTO) obj).getContent());
             List<CommentDTO> commentDTOS = ((PostDTO) obj).getCommentDTOS();
