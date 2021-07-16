@@ -9,6 +9,8 @@ public interface PostService {
 
     List<PostDTO> findAll();
 
+    PostDTO save(PostDTO newPostDTO);
+
     PostDTO findById(Long id) throws ResourceNotFoundException;
 
     PostDTO updateTitle(Long id, String title) throws ResourceNotFoundException;

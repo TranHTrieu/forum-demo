@@ -69,8 +69,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public PostDTO save(PostDTO newPostDTO) {
+        Post newPost = postRepository.save((Post) mapper(newPostDTO));
+        return (PostDTO) mapper(newPost);
+    }
+
+    @Override
     public PostDTO findById(Long id) throws ResourceNotFoundException {
-        Post rs = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post not found for this id: " + id));
+        Post rs = postRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Post not found for this id: " + id));
         return (PostDTO)mapper(rs);
     }
 

@@ -25,6 +25,11 @@ public class CommentController {
         return commentService.findAll();
     }
 
+    @PostMapping("/comments")
+    public CommentDTO saveComment(@RequestBody CommentDTO newComment){
+        return commentService.save(newComment);
+    }
+
     @GetMapping("/comments/{id}")
     public CommentDTO getComment(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         return commentService.findById(id);

@@ -53,7 +53,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDTO findById(Long id) throws ResourceNotFoundException {
-        Comment rs = commentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Comment not found for this id " + id));
+        Comment rs = commentRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Comment not found for this id " + id));
         return (CommentDTO) mapper(rs);
     }
 

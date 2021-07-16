@@ -25,6 +25,11 @@ public class PostController {
         return postService.findAll();
     }
 
+    @PostMapping("/posts")
+    public PostDTO addPost(@RequestBody PostDTO newPost){
+        return postService.save(newPost);
+    }
+
     @GetMapping("/posts/{id}")
     public PostDTO getPost(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         return postService.findById(id);
