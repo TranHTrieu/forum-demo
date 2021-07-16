@@ -1,6 +1,11 @@
 @import 'colors/_tailwind.scss';
 
 /*
+Dark or Light
+*/
+$darkMode: true;
+
+/*
 General component attributes
 */
 
@@ -27,14 +32,14 @@ $cardBg: $white;
 */
 
 // Primary
-$fadePrimaryColor: $yellow-50;
-$fadePrimaryHoverColor: $yellow-100;
-$fadePrimaryActiveColor: $yellow-200;
-$fadePrimaryTextColor: $yellow-500;
+$fadePrimaryColor: $blue-50;
+$fadePrimaryHoverColor: $blue-100;
+$fadePrimaryActiveColor: $blue-200;
+$fadePrimaryTextColor: $blue-500;
 
-$primaryColor: $yellow-500;
-$primaryHoverColor: $yellow-600;
-$primaryActiveColor: $yellow-700;
+$primaryColor: $blue-500;
+$primaryHoverColor: $blue-600;
+$primaryActiveColor: $blue-700;
 $primaryTextColor: $white;
 
 // Success
@@ -102,13 +107,6 @@ $secondaryColor: $gray-900;
 $secondaryHoverColor: $gray-700;
 $secondaryActiveColor: $gray-800;
 $secondaryTextColor: $white;
-
-
-/*
-Dark theme
-*/
-
-$darkMode: true;
 
 @if $darkMode {
   // General dark component attributes

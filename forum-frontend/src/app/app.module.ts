@@ -11,22 +11,30 @@ import {AppRoutingModule} from "./app-routing.module";
 import {NavbarComponent} from "./@shared/navbar/navbar.component";
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
+import {PostAddFormComponent} from "./@shared/post-add-form/post-add-form.component";
+import {DialogModule} from "primeng/dialog";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     PostComponent,
-    NewPageComponent
+    NewPageComponent,
+    PostAddFormComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ButtonModule,
     InputTextModule,
+    InputTextareaModule,
     CardModule,
+    DialogModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
