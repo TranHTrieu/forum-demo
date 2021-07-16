@@ -1,5 +1,7 @@
 package com.fsoft.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,8 +20,8 @@ public class Post {
     @Column(name = "content")
     private String content;
 
-    @OneToMany
-    @JoinColumn(name = "post_id")
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
     public Long getId() {

@@ -5,6 +5,7 @@ import com.fsoft.demo.entity.Comment;
 import com.fsoft.demo.exception.ResourceNotFoundException;
 import com.fsoft.demo.repository.CommentRepository;
 import com.fsoft.demo.service.CommentService;
+import com.fsoft.demo.utils.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,26 +16,12 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
     private CommentRepository commentRepository;
+    private MapUtils mapUtils;
 
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository){
+    public CommentServiceImpl(MapUtils mapUtils, CommentRepository commentRepository){
+        this.mapUtils = mapUtils;
         this.commentRepository = commentRepository;
-    }
-
-    private Object mapper(Object obj){
-        if (obj instanceof Comment){
-            CommentDTO rs = new CommentDTO();
-            rs.setId(((Comment) obj).getId());
-            rs.setContent(((Comment) obj).getContent());
-            return rs;
-        }
-        if (obj instanceof CommentDTO){
-            Comment rs = new Comment();
-            rs.setId(((CommentDTO) obj).getId());
-            rs.setContent(((CommentDTO) obj).getContent());
-            return rs;
-        }
-        return null;
     }
 
     @Override
@@ -42,22 +29,22 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> rs = commentRepository.findAll();
         List<CommentDTO> rsDTO = new ArrayList<>();
         for (Comment comment : rs){
-            rsDTO.add((CommentDTO) mapper(comment));
+            rsDTO.add((CommentDTO) mapUtils.mapper(comment));
         }
         return rsDTO;
     }
 
     @Override
     public CommentDTO save(CommentDTO newCommentDTO) {
-        Comment newComment = commentRepository.save((Comment) mapper(newCommentDTO));
-        return (CommentDTO)mapper(newComment);
+        Comment newComment = commentRepository.save((Comment) mapUtils.mapper(newCommentDTO));
+        return (CommentDTO)mapUtils.mapper(newComment);
     }
 
     @Override
     public CommentDTO findById(Long id) throws ResourceNotFoundException {
         Comment rs = commentRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Comment not found for this id " + id));
-        return (CommentDTO) mapper(rs);
+        return (CommentDTO) mapUtils.mapper(rs);
     }
 
     @Override
