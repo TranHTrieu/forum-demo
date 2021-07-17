@@ -16,8 +16,4 @@ export class PostApiService {
   addPost(post: Post): Observable<any> {
     return this.http.post(`${this.baseUrl}`, post);
   }
-
-  getCommentsFromPost(postId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
-  }
 }

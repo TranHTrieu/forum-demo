@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/api/posts")
 public class PostController {
 
     private PostService postService;
@@ -20,29 +21,29 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/posts")
+    @GetMapping
     public List<PostDTO> getAllPosts(){
         return postService.findAll();
     }
 
-    @PostMapping("/posts")
+    @PostMapping
     public PostDTO addPost(@RequestBody PostDTO newPost){
         return postService.save(newPost);
     }
 
-    @GetMapping("/posts/{id}")
+    @GetMapping("/{id}")
     public PostDTO getPost(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         return postService.findById(id);
     }
 
-    @PutMapping("/posts/title/{id}")
+    @PutMapping("/title/{id}")
     public ResponseEntity<PostDTO> updateTitle(@PathVariable(value = "id") Long id,
                                                @RequestBody String title) throws ResourceNotFoundException {
         PostDTO postUpdate = postService.updateTitle(id, title);
         return ResponseEntity.ok(postUpdate);
     }
 
-    @PutMapping("/posts/content/{id}")
+    @PutMapping("/content/{id}")
     public ResponseEntity<PostDTO> updateContent(@PathVariable(value = "id") Long id,
                                                  @RequestBody String content) throws ResourceNotFoundException {
         PostDTO postUpdate = postService.updateContent(id, content);
