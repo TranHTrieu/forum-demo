@@ -10,14 +10,14 @@
     <div class="col-12">
       <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
         <span class="p-float-label" >
-          <input type="text" id="title" class="mb-4" style="width: 100%" pInputText />
+          <input type="text" id="title" class="mb-4" style="width: 100%" pInputText formControlName="title"/>
           <label for="title">Title</label>
         </span>
         <span class="p-float-label">
-          <textarea id="content" [rows]="10" style="width: 100%;" class="mb-4" pInputTextarea></textarea>
+          <textarea id="content" [rows]="10" style="width: 100%;" class="mb-4" pInputTextarea formControlName="content"></textarea>
           <label for="content">Content</label>
         </span>
-        <button pButton pRipple type="button" label="Publish post" style="width: 100%;" class="p-button-fade p-button-secondary p-button-lg"></button>
+        <button pButton label="Publish post" style="width: 100%;" class="p-button-fade p-button-secondary p-button-lg"></button>
       </form>
     </div>
   </div>
