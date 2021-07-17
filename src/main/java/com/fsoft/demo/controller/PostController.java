@@ -21,6 +21,11 @@ public class PostController {
         this.postService = postService;
     }
 
+    @GetMapping("/{id}")
+    public PostDTO getPost(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
+        return postService.findById(id);
+    }
+
     @GetMapping
     public List<PostDTO> getAllPosts(){
         return postService.findAll();
@@ -31,9 +36,10 @@ public class PostController {
         return postService.save(newPost);
     }
 
-    @GetMapping("/{id}")
-    public PostDTO getPost(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
-        return postService.findById(id);
+
+    @GetMapping("/account/{id}")
+    public List<PostDTO> getAllPostsByAccount(@PathVariable(value = "id") Long accountId) throws ResourceNotFoundException {
+        return postService.findPostsByAccount(accountId);
     }
 
     @PutMapping("/title/{id}")
@@ -44,8 +50,7 @@ public class PostController {
     }
 
     @PutMapping("/content/{id}")
-    public ResponseEntity<PostDTO> updateContent(@PathVariable(value = "id") Long id,
-                                                 @RequestBody String content) throws ResourceNotFoundException {
+    public ResponseEntity<PostDTO> updateContent(@PathVariable(value = "id") Long id, @RequestBody String content) throws ResourceNotFoundException {
         PostDTO postUpdate = postService.updateContent(id, content);
         return ResponseEntity.ok(postUpdate);
     }
