@@ -9,9 +9,13 @@ public interface CommentService {
 
     List<CommentDTO> findAll();
 
-    CommentDTO save(CommentDTO newComment);
-
     CommentDTO findById(Long id) throws ResourceNotFoundException;
+
+    List<CommentDTO> findCommentsByPost(Long postId) throws ResourceNotFoundException;
+
+    List<CommentDTO> findCommentsByAccount(Long accountId) throws ResourceNotFoundException;
+
+    CommentDTO save(CommentDTO newComment);
 
     CommentDTO updateContent(Long id, String content) throws ResourceNotFoundException;
 }

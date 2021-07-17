@@ -26,6 +26,16 @@ public class CommentController {
         return commentService.findAll();
     }
 
+    @GetMapping("/post/{id}")
+    public List<CommentDTO> getAllCommentsByPost(@PathVariable(value = "id") Long postId) throws ResourceNotFoundException {
+        return commentService.findCommentsByPost(postId);
+    }
+
+    @GetMapping("/account/{id}")
+    public List<CommentDTO> getAllCommentsByAccount(@PathVariable(value = "id") Long accountId) throws ResourceNotFoundException {
+        return commentService.findCommentsByAccount(accountId);
+    }
+
     @PostMapping
     public CommentDTO saveComment(@RequestBody CommentDTO newComment){
         return commentService.save(newComment);

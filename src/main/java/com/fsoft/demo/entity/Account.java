@@ -1,10 +1,15 @@
 package com.fsoft.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "account")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Account {
 
     @Id
@@ -18,12 +23,12 @@ public class Account {
     @Column(name = "password")
     private String password;
 
-    @OneToMany
-    @JoinColumn(name = "account_id")
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", fetch = FetchType.LAZY)
     private List<Post> posts;
 
-    @OneToMany
-    @JoinColumn(name = "account_id")
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
     public Long getId() {
@@ -65,4 +70,5 @@ public class Account {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
 }

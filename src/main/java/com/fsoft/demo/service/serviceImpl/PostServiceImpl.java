@@ -1,8 +1,10 @@
 package com.fsoft.demo.service.serviceImpl;
 
 import com.fsoft.demo.dto.PostDTO;
+import com.fsoft.demo.entity.Account;
 import com.fsoft.demo.entity.Post;
 import com.fsoft.demo.exception.ResourceNotFoundException;
+import com.fsoft.demo.repository.AccountRepository;
 import com.fsoft.demo.repository.PostRepository;
 import com.fsoft.demo.service.PostService;
 import com.fsoft.demo.utils.MapUtils;
@@ -16,12 +18,16 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
+    private AccountRepository accountRepository;
     private MapUtils mapUtils;
 
     @Autowired
-    public PostServiceImpl(MapUtils mapUtils, PostRepository postRepository){
+    public PostServiceImpl(MapUtils mapUtils,
+                           PostRepository postRepository,
+                           AccountRepository accountRepository){
         this.mapUtils = mapUtils;
         this.postRepository = postRepository;
+        this.accountRepository = accountRepository;
     }
 
     @Override
@@ -32,6 +38,19 @@ public class PostServiceImpl implements PostService {
             rsDTO.add((PostDTO) mapUtils.mapper(post));
         }
         return rsDTO;
+    }
+
+    @Override
+    public List<PostDTO> findPostsByAccount(Long accountId) throws ResourceNotFoundException {
+        Account account = accountRepository.findById(accountId).orElseThrow(() ->
+                new ResourceNotFoundException("Account not found for this id: " + accountId));
+        List<Post> posts = postRepository.findPostsByAccount(account);
+        List<PostDTO> postDTOS = new ArrayList<>();
+        for (Post post : posts){
+            PostDTO postDTO = (PostDTO) mapUtils.mapper(post);
+            postDTOS.add(postDTO);
+        }
+        return postDTOS;
     }
 
     @Override

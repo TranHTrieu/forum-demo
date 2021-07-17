@@ -21,19 +21,24 @@ public class PostController {
         this.postService = postService;
     }
 
+    @GetMapping("/{id}")
+    public PostDTO getPost(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
+        return postService.findById(id);
+    }
+
     @GetMapping
     public List<PostDTO> getAllPosts(){
         return postService.findAll();
     }
 
+    @GetMapping("/account/{id}")
+    public List<PostDTO> getAllPostsByAccount(@PathVariable(value = "id") Long accountId) throws ResourceNotFoundException {
+        return postService.findPostsByAccount(accountId);
+    }
+
     @PostMapping
     public PostDTO addPost(@RequestBody PostDTO newPost){
         return postService.save(newPost);
-    }
-
-    @GetMapping("/{id}")
-    public PostDTO getPost(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
-        return postService.findById(id);
     }
 
     @PutMapping("/title/{id}")
