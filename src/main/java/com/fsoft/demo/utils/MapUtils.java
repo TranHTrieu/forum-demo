@@ -1,10 +1,12 @@
 package com.fsoft.demo.utils;
 
+import antlr.StringUtils;
 import com.fsoft.demo.dto.CommentDTO;
 import com.fsoft.demo.dto.PostDTO;
 import com.fsoft.demo.entity.Comment;
 import com.fsoft.demo.entity.Post;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,6 @@ public class MapUtils {
             CommentDTO rs = new CommentDTO();
             rs.setId(((Comment) obj).getId());
             rs.setContent(((Comment) obj).getContent());
-
             Post post = ((Comment) obj).getPost();
             PostDTO postDTO = new PostDTO();
             postDTO.setId(post.getId());
@@ -43,15 +44,17 @@ public class MapUtils {
             rs.setId(((Post) obj).getId());
             rs.setTitle(((Post) obj).getTitle());
             rs.setContent(((Post) obj).getContent());
-            List<Comment> comments = ((Post) obj).getComments();
-            List<CommentDTO> commentDTOS = new ArrayList<>();
-            for(Comment comment : comments){
-                CommentDTO commentDTO = new CommentDTO();
-                commentDTO.setId(comment.getId());
-                commentDTO.setContent(comment.getContent());
-                commentDTOS.add(commentDTO);
+            if(!ObjectUtils.isEmpty(((Post) obj).getComments())){
+                List<Comment> comments = ((Post) obj).getComments();
+                List<CommentDTO> commentDTOS = new ArrayList<>();
+                for(Comment comment : comments){
+                    CommentDTO commentDTO = new CommentDTO();
+                    commentDTO.setId(comment.getId());
+                    commentDTO.setContent(comment.getContent());
+                    commentDTOS.add(commentDTO);
+                }
+                rs.setCommentDTOS(commentDTOS);
             }
-            rs.setCommentDTOS(commentDTOS);
             return rs;
         }
         if (obj instanceof PostDTO){
@@ -59,15 +62,17 @@ public class MapUtils {
             rs.setId(((PostDTO) obj).getId());
             rs.setTitle(((PostDTO) obj).getTitle());
             rs.setContent(((PostDTO) obj).getContent());
-            List<CommentDTO> commentDTOS = ((PostDTO) obj).getCommentDTOS();
-            List<Comment> comments = new ArrayList<>();
-            for(CommentDTO commentDTO : commentDTOS){
-                Comment comment = new Comment();
-                comment.setId(commentDTO.getId());
-                comment.setContent(commentDTO.getContent());
-                comments.add(comment);
+            if(!ObjectUtils.isEmpty(((PostDTO) obj).getCommentDTOS())){
+                List<CommentDTO> commentDTOS = ((PostDTO) obj).getCommentDTOS();
+                List<Comment> comments = new ArrayList<>();
+                for(CommentDTO commentDTO : commentDTOS){
+                    Comment comment = new Comment();
+                    comment.setId(commentDTO.getId());
+                    comment.setContent(commentDTO.getContent());
+                    comments.add(comment);
+                }
+                rs.setComments(comments);
             }
-            rs.setComments(comments);
             return rs;
         }
         return null;
