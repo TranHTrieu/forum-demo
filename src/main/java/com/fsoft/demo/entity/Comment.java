@@ -18,7 +18,8 @@ public class Comment {
     private Post post;
 
     @ManyToOne
-    @JoinColumn(name = "account_id", nullable = false)
+//    @JoinColumn(name = "account_id", nullable = false)
+    @JoinColumn(name = "account_id")
     private Account account;
 
     public Long getId() {
