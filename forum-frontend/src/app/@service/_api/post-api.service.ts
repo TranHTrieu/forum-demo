@@ -13,6 +13,10 @@ export class PostApiService {
     return this.http.get(`${this.baseUrl}`);
   }
 
+  getPost(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${id}`);
+  }
+
   addPost(post: Post): Observable<any> {
     return this.http.post(`${this.baseUrl}`, post);
   }

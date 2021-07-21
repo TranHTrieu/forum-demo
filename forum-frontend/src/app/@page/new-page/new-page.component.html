@@ -5,7 +5,8 @@
     <p class="pb-4">/Username</p>
     <div class="pb-2 row">
       <div class="col">
-        <button pButton pRipple type="button" icon="pi pi-comment" label="Comments" class="p-button-secondary p-button-text"></button>
+        <button pButton pRipple type="button" icon="pi pi-comment"
+                label="Comments" class="p-button-secondary p-button-text" (click)="openPostDetail(post.id)"></button>
         <button pButton pRipple type="button" icon="pi pi-share-alt" label="Share" class="p-button-secondary p-button-text"></button>
       </div>
     </div>

@@ -1,6 +1,4 @@
-<button
-  pButton
-  pRipple
+<button pButton pRipple
   type="button" icon="pi pi-plus" label="Add post"
   class="p-button-secondary p-button-fade p-button-rounded"
   (click)="showDialog()">
@@ -9,7 +7,7 @@
   <div class="row justify-content-center my-4">
     <div class="col-12">
       <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-        <span class="p-float-label" >
+        <span class="p-float-label">
           <input type="text" id="title" class="mb-4" style="width: 100%" pInputText formControlName="title"/>
           <label for="title">Title</label>
         </span>

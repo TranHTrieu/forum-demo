@@ -3,6 +3,7 @@ import {PostApiService} from "../../@service/_api/post-api.service";
 import {Post} from "../../@model/post.model";
 import {PostStoreService} from "../../@service/_store/post-store.service";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-new-page',
@@ -14,7 +15,8 @@ export class NewPageComponent implements OnInit {
   postSub: Subscription | undefined;
 
   constructor(private postApiService: PostApiService,
-              private postStoreService: PostStoreService) {}
+              private postStoreService: PostStoreService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.listPosts();
@@ -29,5 +31,9 @@ export class NewPageComponent implements OnInit {
     this.postApiService.getPosts().subscribe((data) => {
       this.newPosts = data;
     });
+  }
+
+  openPostDetail(postId: number | undefined) {
+    this.router.navigate([`posts/${postId}`]);
   }
 }
