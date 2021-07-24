@@ -31,12 +31,14 @@ public class MapUtils {
             Comment rs = new Comment();
             rs.setId(((CommentDTO) obj).getId());
             rs.setContent(((CommentDTO) obj).getContent());
-            PostDTO postDTO = ((CommentDTO) obj).getPostDTO();
-            Post post = new Post();
-            post.setId(postDTO.getId());
-            post.setTitle(postDTO.getTitle());
-            post.setContent(postDTO.getContent());
-            rs.setPost(post);
+            if(ObjectUtils.isEmpty(((CommentDTO) obj).getPostDTO())){
+                PostDTO postDTO = ((CommentDTO) obj).getPostDTO();
+                Post post = new Post();
+                post.setId(postDTO.getId());
+                post.setTitle(postDTO.getTitle());
+                post.setContent(postDTO.getContent());
+                rs.setPost(post);
+            }
             return rs;
         }
         if (obj instanceof Post){
