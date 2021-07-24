@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {PostApiService} from "../../../@service/_api/post-api.service";
 import {CommentStoreService} from "../../../@service/_store/comment-store.service";
@@ -12,8 +12,9 @@ import {Post} from "../../../@model/post.model";
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss']
 })
-export class PostDetailComponent implements OnInit {
+export class PostDetailComponent implements OnInit, OnDestroy {
   post: Post = new Post();
+  comments: Comment[] = [];
   postId: any;
   commentForm: any;
   commentSub: any;
@@ -44,7 +45,7 @@ export class PostDetailComponent implements OnInit {
   onSubmit(): void {
     console.log('Submitting comment');
     const comment: Comment = new Comment(this.commentForm.get('content').value);
-    this.commentApiService.addComment(comment).subscribe((res) => {
+    this.commentApiService.addComment(comment, this.postId).subscribe((res) => {
       this.commentStoreService.setUpdateStatus();
       this.display = false;
     });
@@ -65,11 +66,15 @@ export class PostDetailComponent implements OnInit {
 
   listComments(): void {
     this.commentApiService.getCommentsByPostId(this.postId).subscribe((data: any) => {
-      this.post.comments = data;
+      this.comments = data;
     })
   }
 
   showDialog(): void {
     this.display = true;
+  }
+
+  ngOnDestroy() {
+    this.commentSub.unsubscribe();
   }
 }

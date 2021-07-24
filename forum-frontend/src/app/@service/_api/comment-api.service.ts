@@ -13,7 +13,7 @@ export class CommentApiService {
     return this.http.get(`${this.baseUrl}/post/${postId}`);
   }
 
-  addComment(comment: Comment): Observable<any> {
-    return this.http.post(`${this.baseUrl}`, comment);
+  addComment(comment: Comment, postId: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/post/${postId}`, comment);
   }
 }
