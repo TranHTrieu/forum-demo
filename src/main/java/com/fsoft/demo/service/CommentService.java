@@ -15,7 +15,7 @@ public interface CommentService {
 
     List<CommentDTO> findCommentsByAccount(Long accountId) throws ResourceNotFoundException;
 
-    CommentDTO save(CommentDTO newComment);
+    CommentDTO save(Long postId, CommentDTO newComment) throws ResourceNotFoundException;
 
     CommentDTO updateContent(Long id, String content) throws ResourceNotFoundException;
 }

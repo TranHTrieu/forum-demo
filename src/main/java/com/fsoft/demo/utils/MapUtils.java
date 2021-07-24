@@ -31,7 +31,7 @@ public class MapUtils {
             Comment rs = new Comment();
             rs.setId(((CommentDTO) obj).getId());
             rs.setContent(((CommentDTO) obj).getContent());
-            if(ObjectUtils.isEmpty(((CommentDTO) obj).getPostDTO())){
+            if(!ObjectUtils.isEmpty(((CommentDTO) obj).getPostDTO())){
                 PostDTO postDTO = ((CommentDTO) obj).getPostDTO();
                 Post post = new Post();
                 post.setId(postDTO.getId());

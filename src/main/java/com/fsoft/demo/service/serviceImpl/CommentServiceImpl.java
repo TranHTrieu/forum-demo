@@ -1,6 +1,7 @@
 package com.fsoft.demo.service.serviceImpl;
 
 import com.fsoft.demo.dto.CommentDTO;
+import com.fsoft.demo.dto.PostDTO;
 import com.fsoft.demo.entity.Account;
 import com.fsoft.demo.entity.Comment;
 import com.fsoft.demo.entity.Post;
@@ -10,6 +11,7 @@ import com.fsoft.demo.repository.CommentRepository;
 import com.fsoft.demo.repository.PostRepository;
 import com.fsoft.demo.service.CommentService;
 import com.fsoft.demo.utils.MapUtils;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +74,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDTO save(CommentDTO newCommentDTO) {
+    public CommentDTO save(Long postId, CommentDTO newCommentDTO) throws ResourceNotFoundException {
+        Post post = postRepository.findById(postId).orElseThrow(() ->
+                new ResourceNotFoundException("Account not found for this id: " + postId));
+        PostDTO postDTO = (PostDTO) mapUtils.mapper(post);
+        newCommentDTO.setPostDTO(postDTO);
         Comment newComment = commentRepository.save((Comment) mapUtils.mapper(newCommentDTO));
         return (CommentDTO)mapUtils.mapper(newComment);
     }
@@ -86,8 +92,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDTO updateContent(Long id, String content) throws ResourceNotFoundException {
-        CommentDTO comment = findById(id);
-        comment.setContent(content);
-        return save(comment);
+//        CommentDTO comment = findById(id);
+//        comment.setContent(content);
+//        return save(comment);
+        return null;
     }
 }

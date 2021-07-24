@@ -36,9 +36,9 @@ public class CommentController {
         return commentService.findCommentsByAccount(accountId);
     }
 
-    @PostMapping
-    public CommentDTO saveComment(@RequestBody CommentDTO newComment){
-        return commentService.save(newComment);
+    @PostMapping("/post/{id}")
+    public CommentDTO saveComment(@PathVariable(value = "id") Long postId, @RequestBody CommentDTO newComment) throws ResourceNotFoundException {
+        return commentService.save(postId, newComment);
     }
 
     @GetMapping("/{id}")
