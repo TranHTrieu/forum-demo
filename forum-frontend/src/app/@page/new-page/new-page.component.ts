@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {PostApiService} from "../../@service/_api/post-api.service";
+import {Post} from "../../@model/post.model";
+import {PostStoreService} from "../../@service/_store/post-store.service";
+import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-new-page',
@@ -6,10 +11,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-page.component.scss']
 })
 export class NewPageComponent implements OnInit {
+  newPosts: Post[] = [];
+  postSub: Subscription | undefined;
 
-  constructor() { }
+  constructor(private postApiService: PostApiService,
+              private postStoreService: PostStoreService,
+              private router: Router) {}
 
   ngOnInit(): void {
+    this.listPosts();
+    this.postSub = this.postStoreService.updateStatusChanged.subscribe((status: boolean) => {
+      if (status) {
+        this.listPosts();
+      }
+    });
   }
 
+  listPosts(): void {
+    this.postApiService.getPosts().subscribe((data) => {
+      this.newPosts = data;
+    });
+  }
+
+  openPostDetail(postId: number | undefined) {
+    this.router.navigate([`posts/${postId}`]);
+  }
 }

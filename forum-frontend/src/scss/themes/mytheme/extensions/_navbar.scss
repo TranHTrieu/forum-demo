@@ -20,6 +20,7 @@ $navbar-toggler-border-radius: 20px;
 .navbar-brand {
   color: $primaryColor;
   font-weight: 700;
+  text-decoration: none !important;
 }
 
 .nav-item {

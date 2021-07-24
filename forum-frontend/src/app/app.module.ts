@@ -16,6 +16,8 @@ import {DialogModule} from "primeng/dialog";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { PostDetailPageComponent } from './@page/post-detail-page/post-detail-page.component';
+import { PostDetailComponent } from './@page/post-detail-page/post-detail/post-detail.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import {HttpClientModule} from "@angular/common/http";
     PostComponent,
     NewPageComponent,
     PostFormComponent,
+    PostDetailPageComponent,
+    PostDetailComponent,
   ],
   imports: [
     BrowserModule,
